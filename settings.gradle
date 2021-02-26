@@ -1,0 +1,3 @@
+include ':app'
+include ':databinding_ext_lugin'
+rootProject.name = "DataBindingExtendPlugin"

@@ -1,0 +1,49 @@
+apply plugin: 'java-library'
+apply plugin: 'groovy'
+
+//发到本地maven时打开
+apply plugin: 'maven'
+
+// JitPack Maven （发到本地maven时关闭）
+//apply plugin: 'com.github.dcendents.android-maven'
+// Your Group
+group = 'com.github.micahelrepo'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation gradleApi()
+    implementation localGroovy()
+    implementation 'org.javassist:javassist:3.27.0-GA'
+
+    implementation 'com.android.tools.build:transform-api:1.5.0'
+    implementation 'com.android.tools.build:gradle:4.1.1'
+
+
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+
+//发到本地maven时打开
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: 'https://packages.aliyun.com/maven/repository/2067168-release-0eInJD/') {
+                authentication(
+                        userName: '600060664fb2132a19352cb5',
+                        password: 'rKNsWv]21C2E'
+                )
+            }
+            snapshotRepository(url: 'https://packages.aliyun.com/maven/repository/2067168-snapshot-5dbisL/') {
+                authentication(
+                        userName: '600060664fb2132a19352cb5',
+                        password: 'rKNsWv]21C2E'
+                )
+            }
+            pom.version = '1.0.1'
+            pom.artifactId = 'databinding-ext'
+            pom.groupId = 'com.michael'
+        }
+    }
+}

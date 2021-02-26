@@ -1,0 +1,52 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        maven {
+            credentials {
+                username MAVEN_READONLY_USER
+                password MAVEN_READONLY_PASSWORD
+            }
+            url MAVEN_RELEASE_URL
+        }
+        maven {
+            credentials {
+                username MAVEN_READONLY_USER
+                password MAVEN_READONLY_PASSWORD
+            }
+            url MAVEN_SNAPSHOT_URL
+        }
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:4.1.2"
+        classpath 'com.michael:databinding-ext:1.0.0'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        maven {
+            credentials {
+                username MAVEN_READONLY_USER
+                password MAVEN_READONLY_PASSWORD
+            }
+            url MAVEN_RELEASE_URL
+        }
+        maven {
+            credentials {
+                username MAVEN_READONLY_USER
+                password MAVEN_READONLY_PASSWORD
+            }
+            url MAVEN_SNAPSHOT_URL
+        }
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
