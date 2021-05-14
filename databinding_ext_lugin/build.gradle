@@ -41,7 +41,7 @@ uploadArchives {
                         password: 'rKNsWv]21C2E'
                 )
             }
-            pom.version = '1.0.1'
+            pom.version = '1.0.2'
             pom.artifactId = 'databinding-ext'
             pom.groupId = 'com.michael'
         }

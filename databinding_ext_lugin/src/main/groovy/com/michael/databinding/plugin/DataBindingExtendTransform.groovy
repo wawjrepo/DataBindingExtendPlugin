@@ -4,7 +4,6 @@ import com.android.build.api.transform.*
 import com.google.common.collect.ImmutableSet
 
 
-
 import org.apache.commons.codec.digest.DigestUtils
 import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
@@ -50,7 +49,6 @@ class DataBindingExtendTransform extends Transform {
         boolean isFound = false
         transformInvocation.getInputs().each { TransformInput input ->
             input.directoryInputs.each { DirectoryInput directoryInput ->
-                if (isFound) return
                 if (directoryInput.file.isDirectory()) {
                     directoryInput.file.eachFileRecurse { File file ->
                         if (isFound) return
@@ -68,16 +66,15 @@ class DataBindingExtendTransform extends Transform {
                             FileOutputStream fout = new FileOutputStream(file)
                             fout.write(bytes)
                             fout.close()
-                            // 获取output目录
-                            def dest = transformInvocation.getOutputProvider().getContentLocation(directoryInput.name,
-                                    directoryInput.contentTypes, directoryInput.scopes, Format.DIRECTORY)
-
-                            // 将input的目录复制到output指定目录
-                            FileUtils.copyDirectory(directoryInput.file, dest)
                         }
                     }
                 }
+                // 获取output目录
+                def dest = transformInvocation.getOutputProvider().getContentLocation(directoryInput.name,
+                        directoryInput.contentTypes, directoryInput.scopes, Format.DIRECTORY)
 
+                // 将input的目录复制到output指定目录
+                FileUtils.copyDirectory(directoryInput.file, dest)
             }
 
 
@@ -193,7 +190,7 @@ class DataBindingExtendTransform extends Transform {
         protected void onMethodExit(int opcode) {
             super.onMethodExit(opcode)
             print "开始注入代码...  "
-            def mainIncludes =project.extensions.extraProperties.get("mainIncludes") as ArrayList<String>
+            def mainIncludes = project.extensions.extraProperties.get("mainIncludes") as ArrayList<String>
             mainIncludes.each { String moduleName ->
                 mv.visitVarInsn(ALOAD, 1);
                 mv.visitTypeInsn(NEW, "com/wawj/${moduleName}/DataBinderMapperImpl");
